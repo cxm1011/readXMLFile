@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+	<book id="1">
+		<name>江南</name>
+		<author>杰伦</author>
+		<year>2017</year>
+		<price>100</price>
+	</book>
+
+	<book id="2">
+		<name>瓦尔登湖</name>
+		<author>卢梭</author>
+		<year>1982</year>
+		<price>58</price>
+		<language>English</language>
+	</book>
+
+</bookstore>
