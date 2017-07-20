@@ -39,7 +39,7 @@ public class DOMTest {
 //                    System.out.println("属性值："+node.getNodeValue());
 //                }
 
-                //(2)前提知道book有且只有一个id属性
+                //(2)前提知道book有且只有一个id属性 测试
                 Element book = (Element)bookList.item(i);
                 String bookVal = book.getAttribute("id");
 
