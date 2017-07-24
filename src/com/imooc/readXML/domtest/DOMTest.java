@@ -1,4 +1,4 @@
-package com.imooc.domtest;
+package com.imooc.readXML.domtest;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;

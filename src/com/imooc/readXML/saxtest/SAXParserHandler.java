@@ -1,14 +1,25 @@
-package com.imooc.domtest.saxtest;
+package com.imooc.readXML.saxtest;
 
+import com.imooc.readXML.entity.Book;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
 
 /**
  * Created by chen on 2017/7/22.
  */
 public class SAXParserHandler extends DefaultHandler{
     int bookIndex = 0;
+    String value = null;
+    Book book = null;
+    private ArrayList<Book> bookArrayList = new ArrayList<Book>();
+
+    public ArrayList<Book> getBookArrayList() {
+        return bookArrayList;
+    }
+
     //标识解析开始
     @Override
     public void startDocument() throws SAXException {
@@ -29,6 +40,7 @@ public class SAXParserHandler extends DefaultHandler{
         super.startElement(uri, localName, qName, attributes);
         //开始解析book元素属性
         if(qName.equals("book")){
+            book = new Book();
             bookIndex++;
             System.out.println("———开始遍历第"+bookIndex+"本书————");
 //            //已知book元素下属性的名称，根据属性名称获取属性值
@@ -40,6 +52,9 @@ public class SAXParserHandler extends DefaultHandler{
             for(int i = 0;i<num;i++){
                 System.out.print("book元素的第"+(i+1)+"个属性名是："+attributes.getQName(i));
                 System.out.println(" 属性值是："+attributes.getValue(i));
+                if(attributes.getQName(i).equals("id")){
+                    book.setId(attributes.getValue(i));
+                }
             }
         }else if(!qName.equals("bookstore")){
             System.out.print("节点名是：" + qName+"----");
@@ -52,16 +67,31 @@ public class SAXParserHandler extends DefaultHandler{
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         super.endElement(uri, localName, qName);
+
         //判断是否针对一本书已经遍历结束
         if(qName.equals("book")){
+            bookArrayList.add(book);
+            book = null;
             System.out.println("——结束遍历第"+bookIndex+"本书——");
+        }
+        else if(qName.equals("name")){
+            book.setName(value);
+        }
+        else if(qName.equals("author")){
+            book.setAuthor(value);
+        }
+        else if(qName.equals("year")){
+            book.setYear(value);
+        }
+        else if(qName.equals("language")){
+            book.setLanguage(value);
         }
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         super.characters(ch, start, length);
-        String value = new String(ch,start,length);
+        value = new String(ch,start,length);
         if(!value.trim().equals("")) {
             System.out.println("节点值是："+value);
         }
